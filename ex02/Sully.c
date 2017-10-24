@@ -41,12 +41,12 @@ char		*g_src[40] = { "/* ***********************************************",
 	"\t\tfprintf(fd, \"%c\", g_src[m][k]);\n\t\t\telse\n\t\t\t\tfprintf(fd, \"",
 	"%s\", escape_special(g_src[m][k]));\n\t\t}\n\t\tfprintf(fd, (m + 1 == 33)",
 	" ? \"\\\"\" : \"\\\",\\n\\t\");\n\t}\n\tfprintf(fd, \"%s%d\", g_src[l], g",
-	"_x - 5);\n\twhile (++l < 33)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n}\n\nin",
-	"t\t\tmain(void)\n{\n\tchar\tfilename[50];\n\tchar\tbuff[100];\n\n\tif (g_x < 1)\n\t\treturn (0);\n\tsprint",
-	"f(filename, \"Sully_%d.c\", g_x);\n\tprint_prog(filename);\n\tsprintf(fil",
-	"ename, \"Sully_%d\", g_x);\n\tsprintf(buff, \"clang -Wall -Wextra -Werror",
-	" %s.c -o %s\", filename, filename);\n\tsystem(buff);\n\tsprintf(buff, \".",
-	"/%s\", filename);\n\treturn (0);\n}\n" };
+	"_x - 1);\n\twhile (++l < 33)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n}\n\nin",
+	"t\t\tmain(void)\n{\n\tchar\tfilename[50];\n\tchar\tbuff[100];\n\n\tif (g_",
+	"x < 1)\n\t\treturn (0);\n\tsprintf(filename, \"Sully_%d.c\", g_x);\n\tpri",
+	"nt_prog(filename);\n\tsprintf(filename, \"Sully_%d\", g_x);\n\tsprintf(bu",
+	"ff, \"clang -Wall -Wextra -Werror %s.c -o %s\", filename, filename);\n\ts",
+	"ystem(buff);\n\tsprintf(buff, \"./%s\", filename);\n\treturn (0);\n}\n" };
 int			g_x = 5;
 
 char	is_special(char c)
