@@ -54,3 +54,4 @@ dkms.conf
 # Other
 ._*
 .DS_Store
+tmp.c
