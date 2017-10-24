@@ -42,7 +42,7 @@ char		*g_src[30] = { "/* ***********************************************",
 	"tf(fd, \"%c\", g_src[m][k]);\n\t\t\telse\n\t\t\t\tfprintf(fd, \"%s\", esc",
 	"ape_special(g_src[m][k]));\n\t\t}\n\t\tfprintf(fd, (m + 1 == 28) ? \"\\\"",
 	"\" : \"\\\",\\n\\t\");\n\t}\n\twhile (l < 28)\n\t\tfprintf(fd, \"%s\", g_",
-	"src[l++]);\n\treturn (0);\n}\n" };
+	"src[l++]);\n}\n" };
 
 char	is_special(char c)
 {
@@ -87,5 +87,4 @@ int		main(void)
 	}
 	while (l < 28)
 		fprintf(fd, "%s", g_src[l++]);
-	return (0);
 }
