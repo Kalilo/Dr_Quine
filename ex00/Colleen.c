@@ -11,9 +11,7 @@
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include <string.h>
 #include <stdio.h>
-#include <ctype.h>
 
 /*
 	This program will print its own source when run.
@@ -36,10 +34,10 @@ char		*g_src[30] = { "/* ***********************************************",
 	"   ###   ########.fr       */\n/*                                        ",
 	"                                    */\n/* ******************************",
 	"******************************************** */\n\n#include <fcntl.h>\n#i",
-	"nclude <string.h>\n#include <stdio.h>\n#include <ctype.h>\n\n/*\n\tThis p",
-	"rogram will print its own source when run.\n*/\n\n#define SPECIAL_CHAR (c",
-	" == '\\\"' || c == '\\t' || c == '\\n' || c == '\\\\')\n#define LAST_LINE",
-	" 29\n#define SOURCE_LINE 17\n\nchar\t\t*g_src[30] = { ",
+	"nclude <stdio.h>\n\n/*\n\tThis program will print its own source when run",
+	".\n*/\n\n#define SPECIAL_CHAR (c == '\\\"' || c == '\\t' || c == '\\n' ||",
+	" c == '\\\\')\n#define LAST_LINE 29\n#define SOURCE_LINE 17\n\nchar\t\t*g",
+	"_src[30] = { ",
 	" };\n\nchar\t*escape_special(char c)\n{\n\tif (c == '\\\"')\n\t\treturn (",
 	"\"\\\\\\\"\");\n\tif (c == '\\t')\n\t\treturn (\"\\\\t\");\n\tif (c == '",
 	"\\n')\n\t\treturn (\"\\\\n\");\n\treturn (\"\\\\\\\\\");\n}\n\nint\t\tmai",
