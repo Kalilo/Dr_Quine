@@ -43,11 +43,11 @@ char		*g_src[40] = { "/* ***********************************************",
 	" ? \"\\\"\" : \"\\\",\\n\\t\");\n\t}\n\tfprintf(fd, \"%s%d\", g_src[l], g",
 	"_x - 1);\n\twhile (++l < 34)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n\tfclos",
 	"e(fd);\n}\n\nint\t\tmain(void)\n{\n\tchar\tfilename[50];\n\tchar\tbuff[10",
-	"0];\n\n\tif (g_x < 1)\n\t\treturn (0);\n\tsprintf(filename, \"Sully_%d.c",
-	"\", g_x);\n\tprint_prog(filename);\n\tsprintf(filename, \"Sully_%d\", g_",
-	"x);\n\tsprintf(buff, \"clang -Wall -Wextra -Werror %s.c -o %s\\n\", filen",
-	"ame,\n\t\tfilename);\n\tsystem(buff);\n\tsprintf(buff, \"./%s\", filename",
-	");\n\tsystem(buff);\n\treturn (0);\n}\n" };
+	"0];\n\n\tsprintf(filename, \"Sully_%d.c\", g_x);\n\tprint_prog(filename);",
+	"\n\tsprintf(filename, \"Sully_%d\", g_x);\n\tsprintf(buff, \"clang -Wall ",
+	"-Wextra -Werror %s.c -o %s\\n\", filename,\n\t\tfilename);\n\tsystem(buff",
+	");\n\tif (g_x < 1)\n\t\treturn (0);\n\tsprintf(buff, \"./%s\", filename);",
+	"\n\tsystem(buff);\n\treturn (0);\n}\n" };
 int			g_x = 5;
 
 char	is_special(char c)
@@ -102,14 +102,14 @@ int		main(void)
 	char	filename[50];
 	char	buff[100];
 
-	if (g_x < 1)
-		return (0);
 	sprintf(filename, "Sully_%d.c", g_x);
 	print_prog(filename);
 	sprintf(filename, "Sully_%d", g_x);
 	sprintf(buff, "clang -Wall -Wextra -Werror %s.c -o %s\n", filename,
 		filename);
 	system(buff);
+	if (g_x < 1)
+		return (0);
 	sprintf(buff, "./%s", filename);
 	system(buff);
 	return (0);
