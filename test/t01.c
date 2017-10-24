@@ -28,16 +28,21 @@ char		*g_src[30] = { "/* ***********************************************",
 	"   ###   ########.fr       */\n/*                                        ",
 	"                                    */\n/* ******************************",
 	"******************************************** */\n\n#include <fcntl.h>\n#i",
-	"nclude <string.h>\n#include <stdio.h>\n#include <ctype.h>\n\nchar\t\t*g",
-	"_src[30] = { \"",
-	"\" };\n\nint\tmain(void)\n{\n\tFILE\t*fd;\n\tint\t\tk;\n\tint\t\tl;",
-	"\n\tint\t\tm;\n\n\tk = -1;\n\tl = -1;\n\tm = -1;\n\tfd = fopen(\"Colle",
-	"en\", \"w\");\n\twhile (++l < 15)\n\t\tfprintf(fd, g_src[l], g_src[l]",
-	");\n\twhile (++m < 2)\n\t{\n\t\twhile (g_src[m][++k])\n\t\t\tif (!i",
-	"scntrl(g_src[m][k]))\n\t\t\t\tfprintf(fd, \"%c\", g_src[m][k]);\n\t",
-	"\t\telse\n\t\t\t\tfprintf(fd, \"%s\", (g_src[m][k] == '\n') ? \"",
-	"\\n\" : \"\\t\");\n\t\tfprintf(fd, \",\n\t\");\n\t}\n\twhile (++l < 2",
-	"3)\n\t\tfprintf(fd, g_src[l], g_src[l]);\n\treturn (0);\n}\n" };
+	"nclude <string.h>\n#include <stdio.h>\n#include <ctype.h>\n\nchar\t\t*g_s",
+	"rc[30] = { ",
+	" };\n\nchar\tis_special(char c)\n{\n\treturn (c == '\\\"' || c == '\\t' |",
+	"| c == '\\n');\n}\n\nchar\t*escape_special(char c)\n{\n\tif (c == '\\\"')",
+	"\n\t\treturn (\"\\\\\");\n\tif (c == '\\t')\n\t\treturn (\"\\\\t\");\n\ti",
+	"f (c == '\\n')\n\t\treturn (\"\\\\n\");\n\treturn (\"\");\n}\n\nint\t\tma",
+	"in(void)\n{\n\tFILE\t*fd;\n\tint\t\tk;\n\tint\t\tl;\n\tint\t\tm;\n\n\tl =",
+	" -1;\n\tm = -1;\n\tfd = fopen(\"Colleen.c\", \"w\");\n\twhile (++l < 15)",
+	"\n\t\tfprintf(fd, \"%s\", g_src[l]);\n\twhile (++m < 28)\n\t{\n\t\tfprint",
+	"f(fd, \"%c\", '\"');\n\t\tk = -1;\n\t\twhile (g_src[m][++k])\n\t\t{\n\t\t",
+	"\tif (!is_special(g_src[m][k]))\n\t\t\t\tfprintf(fd, \"%c\", g_src[m][k])",
+	";\n\t\t\telse\n\t\t\t\tfprintf(fd, \"%s\", escape_special(g_src[m][k]));",
+	"\n\t\t}\n\t\tfprintf(fd, (m + 1 == 28) ? \"\\\"\" : \"\\\",\\n\\t\");\n",
+	"\t}\n\twhile (l < 28)\n\t\tfprintf(fd, \"%s\", g_src[l++]);\n\treturn (0)",
+	";\n}\n" };
 
 char	is_special(char c)
 {
@@ -64,10 +69,10 @@ int		main(void)
 
 	l = -1;
 	m = -1;
-	fd = fopen("Colleen", "w");
+	fd = fopen("Colleen.c", "w");
 	while (++l < 15)
 		fprintf(fd, "%s", g_src[l]);
-	while (++m < 23)
+	while (++m < 28)
 	{
 		fprintf(fd, "%c", '"');
 		k = -1;
@@ -78,9 +83,9 @@ int		main(void)
 			else
 				fprintf(fd, "%s", escape_special(g_src[m][k]));
 		}
-		fprintf(fd, (m + 1 == 23) ? "\"" : "\",\n\t");
+		fprintf(fd, (m + 1 == 28) ? "\"" : "\",\n\t");
 	}
-	while (++l < 23)
-		fprintf(fd, "%s", g_src[l]);
+	while (l < 28)
+		fprintf(fd, "%s", g_src[l++]);
 	return (0);
 }

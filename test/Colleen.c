@@ -35,11 +35,11 @@ char		*g_src[30] = { "/* ***********************************************",
 	"\n\t\treturn (\\\\);\n\tif (c == '\t')\n\t\treturn (\\\t\);\n\ti",
 	"f (c == '\n')\n\t\treturn (\\\n\);\n\treturn (\\);\n}\n\nint\t\tma",
 	"in(void)\n{\n\tFILE\t*fd;\n\tint\t\tk;\n\tint\t\tl;\n\tint\t\tm;\n\n\tl =",
-	" -1;\n\tm = -1;\n\tfd = fopen(\Colleen\, \w\);\n\twhile (++l < 15)\n",
-	"\t\tfprintf(fd, \%s\, g_src[l]);\n\twhile (++m < 28)\n\t{\n\t\tfprintf(",
-	"fd, \%c\, '\');\n\t\tk = -1;\n\t\twhile (g_src[m][++k])\n\t\t{\n\t\t\t",
-	"if (!is_special(g_src[m][k]))\n\t\t\t\tfprintf(fd, \%c\, g_src[m][k]);",
-	"\n\t\t\telse\n\t\t\t\tfprintf(fd, \%s\, escape_special(g_src[m][k]));",
+	" -1;\n\tm = -1;\n\tfd = fopen(\Colleen.c\, \w\);\n\twhile (++l < 15)",
+	"\n\t\tfprintf(fd, \%s\, g_src[l]);\n\twhile (++m < 28)\n\t{\n\t\tfprint",
+	"f(fd, \%c\, '\');\n\t\tk = -1;\n\t\twhile (g_src[m][++k])\n\t\t{\n\t\t",
+	"\tif (!is_special(g_src[m][k]))\n\t\t\t\tfprintf(fd, \%c\, g_src[m][k])",
+	";\n\t\t\telse\n\t\t\t\tfprintf(fd, \%s\, escape_special(g_src[m][k]));",
 	"\n\t\t}\n\t\tfprintf(fd, (m + 1 == 28) ? \\\\ : \\\,\n\t\);\n",
 	"\t}\n\twhile (l < 28)\n\t\tfprintf(fd, \%s\, g_src[l++]);\n\treturn (0)",
 	";\n}\n" };
@@ -69,7 +69,7 @@ int		main(void)
 
 	l = -1;
 	m = -1;
-	fd = fopen("Colleen", "w");
+	fd = fopen("Colleen.c", "w");
 	while (++l < 15)
 		fprintf(fd, "%s", g_src[l]);
 	while (++m < 28)
