@@ -11,9 +11,13 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <string.h>
 
 # define FT_MAIN(X) int main() { X }
 
+// extern const char *__progname;
+
 FT_MAIN(
 	printf("this is a test main\n");
+	// printf("name: %s\n", strchr(__progname, '.') + 1 );
 )
