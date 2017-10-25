@@ -13,6 +13,9 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+extern const char *__progname;
 
 char		*g_src[40] = { "/* ***********************************************",
 	"*************************** */\n/*                                       ",
@@ -27,7 +30,8 @@ char		*g_src[40] = { "/* ***********************************************",
 	"   ###   ########.fr       */\n/*                                        ",
 	"                                    */\n/* ******************************",
 	"******************************************** */\n\n#include <fcntl.h>\n#i",
-	"nclude <stdio.h>\n#include <stdlib.h>\n\nchar\t\t*g_src[40] = { ",
+	"nclude <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nextern cons",
+	"t char *__progname;\n\nchar\t\t*g_src[40] = { ",
 	" };\nint\t\t\tg_x = ",
 	";\n\nchar\tis_special(char c)\n{\n\treturn (c == '\\\"' || c == '\\t' || ",
 	"c == '\\n' || c == '\\\\');\n}\n\nchar\t*escape_special(char c)\n{\n\tif ",
@@ -35,19 +39,20 @@ char		*g_src[40] = { "/* ***********************************************",
 	"(\"\\\\t\");\n\tif (c == '\\n')\n\t\treturn (\"\\\\n\");\n\treturn (\"\\",
 	"\\\\\\\");\n}\n\nvoid\tprint_prog(char *filename)\n{\n\tFILE\t*fd;\n\tint",
 	"\t\tk;\n\tint\t\tl;\n\tint\t\tm;\n\n\tl = -1;\n\tm = -1;\n\tfd = fopen(fi",
-	"lename, \"w\");\n\twhile (++l < 14)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n",
-	"\twhile (++m < 34)\n\t{\n\t\tfprintf(fd, \"%c\", '\"');\n\t\tk = -1;\n\t",
+	"lename, \"w\");\n\twhile (++l < 15)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n",
+	"\twhile (++m < 36)\n\t{\n\t\tfprintf(fd, \"%c\", '\"');\n\t\tk = -1;\n\t",
 	"\twhile (g_src[m][++k])\n\t\t{\n\t\t\tif (!is_special(g_src[m][k]))\n\t\t",
 	"\t\tfprintf(fd, \"%c\", g_src[m][k]);\n\t\t\telse\n\t\t\t\tfprintf(fd, \"",
-	"%s\", escape_special(g_src[m][k]));\n\t\t}\n\t\tfprintf(fd, (m + 1 == 34)",
+	"%s\", escape_special(g_src[m][k]));\n\t\t}\n\t\tfprintf(fd, (m + 1 == 36)",
 	" ? \"\\\"\" : \"\\\",\\n\\t\");\n\t}\n\tfprintf(fd, \"%s%d\", g_src[l], g",
-	"_x - 1);\n\twhile (++l < 34)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n\tfclos",
-	"e(fd);\n}\n\nint\t\tmain(void)\n{\n\tchar\tfilename[50];\n\tchar\tbuff[10",
-	"0];\n\n\tif (g_x < 0)\n\t\treturn (0);\n\tsprintf(filename, \"Sully_%d.c",
-	"\", g_x);\n\tprint_prog(filename);\n\tsprintf(filename, \"Sully_%d\", g_x",
-	");\n\tsprintf(buff, \"clang -Wall -Wextra -Werror %s.c -o %s\\n\", filena",
-	"me,\n\t\tfilename);\n\tsystem(buff);\n\tif (g_x < 1)\n\t\treturn (0);\n\t",
-	"sprintf(buff, \"./%s\", filename);\n\tsystem(buff);\n\treturn (0);\n}\n" };
+	"_x);\n\twhile (++l < 36)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n\tfclose(fd",
+	");\n}\n\nint\t\tmain(void)\n{\n\tchar\tfilename[50];\n\tchar\tbuff[100];",
+	"\n\n\tif (strchr(__progname, '_'))\n\t\tg_x--;\n\tif (g_x < 0)\n\t\tretur",
+	"n (0);\n\tsprintf(filename, \"Sully_%d.c\", g_x);\n\tprint_prog(filename)",
+	";\n\tsprintf(filename, \"Sully_%d\", g_x);\n\tsprintf(buff, \"clang -Wall",
+	" -Wextra -Werror %s.c -o %s\\n\", filename,\n\t\tfilename);\n\tsystem(buf",
+	"f);\n\tif (g_x < 1)\n\t\treturn (0);\n\tsprintf(buff, \"./%s\", filename)",
+	";\n\tsystem(buff);\n\treturn (0);\n}\n" };
 int			g_x = 5;
 
 char	is_special(char c)
@@ -76,9 +81,9 @@ void	print_prog(char *filename)
 	l = -1;
 	m = -1;
 	fd = fopen(filename, "w");
-	while (++l < 14)
+	while (++l < 15)
 		fprintf(fd, "%s", g_src[l]);
-	while (++m < 34)
+	while (++m < 36)
 	{
 		fprintf(fd, "%c", '"');
 		k = -1;
@@ -89,10 +94,10 @@ void	print_prog(char *filename)
 			else
 				fprintf(fd, "%s", escape_special(g_src[m][k]));
 		}
-		fprintf(fd, (m + 1 == 34) ? "\"" : "\",\n\t");
+		fprintf(fd, (m + 1 == 36) ? "\"" : "\",\n\t");
 	}
-	fprintf(fd, "%s%d", g_src[l], g_x - 1);
-	while (++l < 34)
+	fprintf(fd, "%s%d", g_src[l], g_x);
+	while (++l < 36)
 		fprintf(fd, "%s", g_src[l]);
 	fclose(fd);
 }
@@ -102,6 +107,8 @@ int		main(void)
 	char	filename[50];
 	char	buff[100];
 
+	if (strchr(__progname, '_'))
+		g_x--;
 	if (g_x < 0)
 		return (0);
 	sprintf(filename, "Sully_%d.c", g_x);
