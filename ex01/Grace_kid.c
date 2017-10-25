@@ -45,7 +45,7 @@ char		*g_src[30] = { "/* ***********************************************",
 	"fd, \"%c\", g_src[m][k]);\n\t\t\telse\n\t\t\t\tfprintf(fd, \"%s\", escape",
 	"_special(g_src[m][k]));\n\t\t}\n\t\tfprintf(fd, (m + 1 == 29) ? \"\\\"\" ",
 	": \"\\\",\\n\\t\");\n\t}\n\twhile (l < 29)\n\t\tfprintf(fd, \"%s\", g_src",
-	"[l++]);\n)\n" };
+	"[l++]);\n\tfclose(fd);\n)\n" };
 
 /*
 	This program will print its own source when run.
@@ -87,4 +87,5 @@ FT(
 	}
 	while (l < 29)
 		fprintf(fd, "%s", g_src[l++]);
+	fclose(fd);
 )
