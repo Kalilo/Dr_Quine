@@ -9,34 +9,52 @@ import Darwin
 class Quine {
     let data = ["//import UIKit\nimport Foundation\nimport Darwin\n\n/*\n this",
                 " is a comment\n */\n\nclass Quine {\n    let data = [",
-                "]\n    let filename = \"Grace_kid.swift\"\n\n    func esc_cha",
-                "r(c: Character) -> String {\n        if ([\"\\n\", \"\\\\\", ",
-                "\"\\t\", \"\\\"\"].contains(c)) {\n            let s: String ",
-                "= String(c)\n            if (s == \"\\n\") {\n               ",
-                " return (\"\\\\n\")\n            }\n            if (s == \"\\",
-                "\\\") {\n                return (\"\\\\\\\\\")\n            }",
-                "\n            if (s == \"\\\"\") {\n                return (",
-                "\"\\\\\\\"\")\n            }\n            if (s == \"\\t\") {",
-                "\n                return (\"\\\\t\")\n            }\n        ",
-                "}\n        return (String(c))\n    }\n\n    func write(str: S",
-                "tring) {\n        do {\n            try str.write(toFile: fil",
-                "ename, atomically: false, encoding: String.Encoding.utf8)\n  ",
-                "      }\n        catch let error as NSError {\n            pr",
-                "int(\"Error Writing to File: \\(error)\")\n            exit(0",
-                ")\n        }\n    }\n\n    func main() {\n        var content",
-                ": String = \"\"\n\n        for k in 0...1 {\n            cont",
-                "ent += data[k]\n        }\n        content += \"\\\"\"\n     ",
-                "   for k in 0...25 {\n            for l in data[k].characters",
-                ".indices {\n                content += esc_char(c: data[k][l]",
-                ")\n            }\n            content += \"\\\",\\n          ",
-                "      \\\"\"\n        }\n        content += \"\\\"\"\n       ",
-                " for k in 2...25 {\n            content += data[k]\n        }",
-                "\n        self.write(str: content)\n    }\n}\n\nlet q = Quine",
-                ".init()\n\nq.main()\n",
+                "]\n    var iterations = ",
+                "\n    var filename = \"Sulley_\"\n    \n    func esc_char(_ c",
+                ": Character) -> String {\n        if ([\"\\n\", \"\\\\\", \"",
+                "\\t\", \"\\\"\"].contains(c)) {\n            let s: String = ",
+                "String(c)\n            if (s == \"\\n\") {\n                r",
+                "eturn (\"\\\\n\")\n            }\n            if (s == \"\\\\",
+                "\") {\n                return (\"\\\\\\\\\")\n            }\n",
+                "            if (s == \"\\\"\") {\n                return (\"",
+                "\\\\\\\"\")\n            }\n            if (s == \"\\t\") {\n",
+                "                return (\"\\\\t\")\n            }\n        }",
+                "\n        return (String(c))\n    }\n    \n    func write(str",
+                ": String) {\n        do {\n            try str.write(toFile: ",
+                "filename, atomically: false, encoding: String.Encoding.utf8)",
+                "\n        }\n        catch let error as NSError {\n          ",
+                "  print(\"Error Writing to File: \\(error)\")\n            ex",
+                "it(0)\n        }\n    }\n    \n    func exec(_ command: [Stri",
+                "ng]) {\n        let p = Process.init()\n        p.launchPath ",
+                "= \"/usr/bin/env\"\n        p.arguments = command\n        \n",
+                "        let pipe = Pipe()\n        p.standardOutput = pipe\n ",
+                "       p.launch()\n    }\n    \n    func printQuine() {\n    ",
+                "    var content: String = \"\"\n        \n        for k in 0.",
+                "..1 {\n            content += data[k]\n        }\n        con",
+                "tent += \"\\\"\"\n        for k in 0...42 {\n            for ",
+                "l in data[k].characters.indices {\n                content +=",
+                " esc_char(data[k][l])\n            }\n            content += ",
+                "\"\\\",\\n                \\\"\"\n        }\n        content ",
+                "+= \"\\\"\"\n        content += data[2]\n        content += S",
+                "tring(iterations)\n        for k in 3...42 {\n            con",
+                "tent += data[k]\n        }\n        self.write(str: content)",
+                "\n    }\n    \n    func main() {\n       \n        if (Proces",
+                "sInfo.processInfo.environment[\"MY_SWIFT_QUINE\"] != nil) {\n",
+                "            iterations -= 1\n        }\n        setenv(\"MY_S",
+                "WIFT_QUINE\", \"It is working\", 1)\n        \n        if ite",
+                "rations < 0 {\n            exit(0)\n        }\n        \n    ",
+                "    filename += String(iterations) + \".swift\"\n        self",
+                ".printQuine()\n        self.exec([\"swiftc\", filename])\n   ",
+                "     if iterations < 1 {\n            exit(0)\n        }\n   ",
+                "     filename = \"./\" + filename.replacingOccurrences(of: \"",
+                ".swift\", with: \"\", options: .literal, range: nil)\n       ",
+                " self.exec([\"filename\"])\n    }\n}\n\nlet q = Quine.init()",
+                "\n\nq.main()",
                 ""]
-    let filename = "Grace_kid.swift"
+    var iterations = 5
+    var filename = "Sulley_"
     
-    func esc_char(c: Character) -> String {
+    func esc_char(_ c: Character) -> String {
         if (["\n", "\\", "\t", "\""].contains(c)) {
             let s: String = String(c)
             if (s == "\n") {
@@ -65,24 +83,57 @@ class Quine {
         }
     }
     
-    func main() {
+    func exec(_ command: [String]) {
+//        let p = Process.init()
+//        p.launchPath = "/usr/bin/env"
+//        p.arguments = command
+//        
+//        let pipe = Pipe()
+//        p.standardOutput = pipe
+//        p.launch()
+    }
+    
+    func printQuine() {
         var content: String = ""
         
         for k in 0...1 {
             content += data[k]
         }
         content += "\""
-        for k in 0...25 {
+        for k in 0...42 {
             for l in data[k].characters.indices {
-                content += esc_char(c: data[k][l])
+                content += esc_char(data[k][l])
             }
             content += "\",\n                \""
         }
         content += "\""
-        for k in 2...25 {
+        content += data[2]
+        content += String(iterations)
+        for k in 3...42 {
             content += data[k]
         }
         self.write(str: content)
+    }
+    
+    func main() {
+        
+        if (ProcessInfo.processInfo.environment["MY_SWIFT_QUINE"] != nil) {
+            iterations -= 1
+        }
+        setenv("MY_SWIFT_QUINE", "It is working", 1)
+        
+        if iterations < 0 {
+            exit(0)
+        }
+        
+        filename += String(iterations) + ".swift"
+        self.printQuine()
+        self.exec(["swiftc", filename])
+        if iterations < 1 {
+            exit(0)
+        }
+        filename = "./" + filename.replacingOccurrences(of: ".swift", with: "", options: .literal, range: nil)
+        self.exec(["filename"])
     }
 }
 
