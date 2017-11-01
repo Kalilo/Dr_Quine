@@ -39,20 +39,21 @@ char		*g_src[40] = { "/* ***********************************************",
 	"(\"\\\\t\");\n\tif (c == '\\n')\n\t\treturn (\"\\\\n\");\n\treturn (\"\\",
 	"\\\\\\\");\n}\n\nvoid\tprint_prog(char *filename)\n{\n\tFILE\t*fd;\n\tint",
 	"\t\tk;\n\tint\t\tl;\n\tint\t\tm;\n\n\tl = -1;\n\tm = -1;\n\tfd = fopen(fi",
-	"lename, \"w\");\n\twhile (++l < 15)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n",
-	"\twhile (++m < 36)\n\t{\n\t\tfprintf(fd, \"%c\", '\"');\n\t\tk = -1;\n\t",
-	"\twhile (g_src[m][++k])\n\t\t{\n\t\t\tif (!is_special(g_src[m][k]))\n\t\t",
-	"\t\tfprintf(fd, \"%c\", g_src[m][k]);\n\t\t\telse\n\t\t\t\tfprintf(fd, \"",
-	"%s\", escape_special(g_src[m][k]));\n\t\t}\n\t\tfprintf(fd, (m + 1 == 36)",
-	" ? \"\\\"\" : \"\\\",\\n\\t\");\n\t}\n\tfprintf(fd, \"%s%d\", g_src[l], g",
-	"_x);\n\twhile (++l < 36)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n\tfclose(fd",
-	");\n}\n\nint\t\tmain(void)\n{\n\tchar\tfilename[50];\n\tchar\tbuff[100];",
-	"\n\n\tif (strchr(__progname, '_'))\n\t\tg_x--;\n\tif (g_x < 0)\n\t\tretur",
-	"n (0);\n\tsprintf(filename, \"Sully_%d.c\", g_x);\n\tprint_prog(filename)",
-	";\n\tsprintf(filename, \"Sully_%d\", g_x);\n\tsprintf(buff, \"clang -Wall",
-	" -Wextra -Werror %s.c -o %s\\n\", filename,\n\t\tfilename);\n\tsystem(buf",
-	"f);\n\tif (g_x < 1)\n\t\treturn (0);\n\tsprintf(buff, \"./%s\", filename)",
-	";\n\tsystem(buff);\n\treturn (0);\n}\n" };
+	"lename, \"w\");\n\tif (!fd) {\n\t\tprintf(\"Error opening file for writin",
+	"g.\");\n\t\texit(1);\n\t}\n\twhile (++l < 15)\n\t\tfprintf(fd, \"%s\", g_",
+	"src[l]);\n\twhile (++m < 37)\n\t{\n\t\tfprintf(fd, \"%c\", '\"');\n\t\tk ",
+	"= -1;\n\t\twhile (g_src[m][++k])\n\t\t{\n\t\t\tif (!is_special(g_src[m][k",
+	"]))\n\t\t\t\tfprintf(fd, \"%c\", g_src[m][k]);\n\t\t\telse\n\t\t\t\tfprin",
+	"tf(fd, \"%s\", escape_special(g_src[m][k]));\n\t\t}\n\t\tfprintf(fd, (m +",
+	" 1 == 37) ? \"\\\"\" : \"\\\",\\n\\t\");\n\t}\n\tfprintf(fd, \"%s%d\", g_",
+	"src[l], g_x);\n\twhile (++l < 37)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n\t",
+	"fclose(fd);\n}\n\nint\t\tmain(void)\n{\n\tchar\tfilename[50];\n\tchar\tbu",
+	"ff[100];\n\n\tif (strchr(__progname, '_'))\n\t\tg_x--;\n\tif (g_x < 0)\n",
+	"\t\treturn (0);\n\tsprintf(filename, \"Sully_%d.c\", g_x);\n\tprint_prog(",
+	"filename);\n\tsprintf(filename, \"Sully_%d\", g_x);\n\tsprintf(buff, \"cl",
+	"ang -Wall -Wextra -Werror %s.c -o %s\\n\", filename,\n\t\tfilename);\n\ts",
+	"ystem(buff);\n\tif (g_x < 1)\n\t\treturn (0);\n\tsprintf(buff, \"./%s\", ",
+	"filename);\n\tsystem(buff);\n\treturn (0);\n}\n" };
 int			g_x = 5;
 
 char	is_special(char c)
@@ -81,9 +82,13 @@ void	print_prog(char *filename)
 	l = -1;
 	m = -1;
 	fd = fopen(filename, "w");
+	if (!fd) {
+		printf("Error opening file for writing.");
+		exit(1);
+	}
 	while (++l < 15)
 		fprintf(fd, "%s", g_src[l]);
-	while (++m < 36)
+	while (++m < 37)
 	{
 		fprintf(fd, "%c", '"');
 		k = -1;
@@ -94,10 +99,10 @@ void	print_prog(char *filename)
 			else
 				fprintf(fd, "%s", escape_special(g_src[m][k]));
 		}
-		fprintf(fd, (m + 1 == 36) ? "\"" : "\",\n\t");
+		fprintf(fd, (m + 1 == 37) ? "\"" : "\",\n\t");
 	}
 	fprintf(fd, "%s%d", g_src[l], g_x);
-	while (++l < 36)
+	while (++l < 37)
 		fprintf(fd, "%s", g_src[l]);
 	fclose(fd);
 }
