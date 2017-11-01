@@ -39,12 +39,12 @@ char		*g_src[30] = { "/* ***************************************************",
 	"\treturn (\"\\\\t\");\n\tif (c == '\\n')\n\t\treturn (\"\\\\n\");\n\treturn",
 	" (\"\\\\\\\\\");\n)\n\nFT(\n\tFILE\t*fd;\n\tint\t\tk;\n\tint\t\tl;\n\tint\t",
 	"\tm;\n\n\tl = -1;\n\tm = -1;\n\tif (!(fd = fopen(\"Grace_kid.c\", \"w\")))",
-	"\n\t{\n\t\tprintf(\"Error opening file.\");\n\t\texit(1);\n\t}\n\twhile (++",
-	"l < 16)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n\twhile (++m < 29)\n\t{\n\t\tf",
-	"printf(fd, \"%c\", '\"');\n\t\tk = -1;\n\t\twhile (g_src[m][++k])\n\t\t{\n",
-	"\t\t\tif (!IS_SPECIAL(g_src[m][k]))\n\t\t\t\tfprintf(fd, \"%c\", g_src[m][k",
-	"]);\n\t\t\telse\n\t\t\t\tfprintf(fd, \"%s\", escape_special(g_src[m][k]));",
-	"\n\t\t}\n\t\tfprintf(fd, (m + 1 == 29) ? \"\\\"\" : \"\\\",\\n\\t\");\n\t}",
+	"\n\t{\n\t\tprintf(\"Error opening file.\\n\");\n\t\texit(1);\n\t}\n\twhile ",
+	"(++l < 16)\n\t\tfprintf(fd, \"%s\", g_src[l]);\n\twhile (++m < 29)\n\t{\n\t",
+	"\tfprintf(fd, \"%c\", '\"');\n\t\tk = -1;\n\t\twhile (g_src[m][++k])\n\t\t{",
+	"\n\t\t\tif (!IS_SPECIAL(g_src[m][k]))\n\t\t\t\tfprintf(fd, \"%c\", g_src[m]",
+	"[k]);\n\t\t\telse\n\t\t\t\tfprintf(fd, \"%s\", escape_special(g_src[m][k]))",
+	";\n\t\t}\n\t\tfprintf(fd, (m + 1 == 29) ? \"\\\"\" : \"\\\",\\n\\t\");\n\t}",
 	"\n\twhile (l < 29)\n\t\tfprintf(fd, \"%s\", g_src[l++]);\n\tfclose(fd);\n)",
 	"\n" };
 
@@ -70,9 +70,9 @@ FT(
 
 	l = -1;
 	m = -1;
-	if ((fd = fopen("Grace_kid.c", "w")) < 0)
+	if (!(fd = fopen("Grace_kid.c", "w")))
 	{
-		printf("Error opening file.");
+		printf("Error opening file.\n");
 		exit(1);
 	}
 	while (++l < 16)
